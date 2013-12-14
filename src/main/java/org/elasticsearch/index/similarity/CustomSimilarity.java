@@ -3,18 +3,24 @@ package org.elasticsearch.index.similarity;
 import org.apache.lucene.search.similarities.TFIDFSimilarity;
 import org.apache.lucene.index.FieldInvertState;
 import org.apache.lucene.util.BytesRef;
+import org.apache.lucene.util.SmallFloat;
 
 /**
  * Custom similarity class
  *
- * @author tanguy
+ * @author outsmartin
  *
  */
 public class CustomSimilarity extends TFIDFSimilarity {
 	/** Sole constructor: parameter-free */
 	public CustomSimilarity() {
 	}
-
+	private static final float[] NORM_TABLE = new float[256];
+	static {
+	    for (int i = 0; i < 256; i++) {
+	      NORM_TABLE[i] = SmallFloat.byte315ToFloat((byte)i);
+	    }
+	  }
 	/** Implemented as <code>overlap / maxOverlap</code>. */
 	@Override
 	public float coord(int overlap, int maxOverlap) {
@@ -76,8 +82,6 @@ public class CustomSimilarity extends TFIDFSimilarity {
 	 * ignored when computing norm. By default this is true, meaning overlap
 	 * tokens do not count when computing norms.
 	 *
-	 * @lucene.experimental
-	 *
 	 * @see #computeNorm
 	 */
 	public void setDiscountOverlaps(boolean v) {
@@ -97,4 +101,19 @@ public class CustomSimilarity extends TFIDFSimilarity {
 	public String toString() {
 		return "DefaultSimilarity";
 	}
+
+	  @Override
+	  public final long encodeNormValue(float f) {
+	    return SmallFloat.floatToByte315(f);
+	  }
+
+	  /**
+	* Decodes the norm value, assuming it is a single byte.
+	*
+	* @see #encodeNormValue(float)
+	*/
+	  @Override
+	  public final float decodeNormValue(long norm) {
+	    return NORM_TABLE[(int) (norm & 0xFF)]; // & 0xFF maps negative bytes to positive above 127
+	  }
 }

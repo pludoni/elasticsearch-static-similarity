@@ -4,14 +4,14 @@
 
   <groupId>de.outsmartin</groupId>
   <artifactId>pludoniSimilarityProvider</artifactId>
-  <version>0.90.7</version>
+  <version>0.1</version>
   <packaging>jar</packaging>
   <name>A custom SimilarityProvider for Elasticsearch</name>
   <url>https://github.com/outsmartin</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <elasticsearch.version>0.90.7</elasticsearch.version>
+    <elasticsearch.version>1.0.0.Beta2</elasticsearch.version>
   </properties>
 
   <dependencies>
@@ -29,7 +29,7 @@
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-core</artifactId>
-      <version>4.5.1</version>
+      <version>4.6.0</version>
     </dependency>
   </dependencies>
 

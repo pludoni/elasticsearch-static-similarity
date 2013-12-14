@@ -8,6 +8,13 @@ build this plugin:
 mvn package
 </pre>
 
+development:
+
+<pre>
+mvn eclipse:eclipse
+</pre>
+
+
 <pre>
 curl -XPOST 'http://host:port/tweeter/' -d '
 {

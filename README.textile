@@ -2,6 +2,12 @@ h1. A custom SimilarityProvider example for Elasticseach
 
 This plugin contains a custom @Similarity@ class that can be used in an index:
 
+
+build this plugin:
+<pre>
+mvn package
+</pre>
+
 <pre>
 curl -XPOST 'http://host:port/tweeter/' -d '
 {
@@ -16,7 +22,7 @@ curl -XPOST 'http://host:port/tweeter/' -d '
     }
   }
 }'
-</pre> 
+</pre>
 
 Enjoy
 
